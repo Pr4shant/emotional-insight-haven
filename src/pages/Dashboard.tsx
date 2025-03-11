@@ -3,11 +3,13 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { mockTherapySessions, mockUserPersonality } from "@/lib/data";
-import { Chart } from "@/components/ui/chart";
+import { ChartContainer } from "@/components/ui/chart";
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Brain, Calendar, Clock, HeartPulse, TrendingUp } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
+import { MoodProgress } from "@/components/MoodProgress";
+import { TraitProgress } from "@/components/TraitProgress";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -67,7 +69,9 @@ const Dashboard = () => {
           </TabsTrigger>
         </TabsList>
         
+        {/* Overview Tab Content */}
         <TabsContent value="overview" className="space-y-6">
+          {/* Statistics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               { 
@@ -119,7 +123,9 @@ const Dashboard = () => {
             ))}
           </div>
           
+          {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Mood Tracking Chart */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -161,6 +167,7 @@ const Dashboard = () => {
               </Card>
             </motion.div>
             
+            {/* Session Duration Chart */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -197,6 +204,7 @@ const Dashboard = () => {
           </div>
         </TabsContent>
         
+        {/* Sessions Tab Content */}
         <TabsContent value="sessions" className="space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -226,13 +234,7 @@ const Dashboard = () => {
                     </div>
                     <div className="md:col-span-1">
                       <p className="text-sm font-medium text-therapy-text-muted mb-1">Mood Change</p>
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-lg font-medium">{session.mood.before}</span>
-                        <div className="flex-1">
-                          <Progress value={(session.mood.after / 10) * 100} className="h-2 bg-therapy-muted" indicatorClassName="bg-therapy-accent" />
-                        </div>
-                        <span className="text-lg font-medium">{session.mood.after}</span>
-                      </div>
+                      <MoodProgress before={session.mood.before} after={session.mood.after} />
                       <div>
                         <p className="text-sm font-medium text-therapy-text-muted mb-1">Key Insights</p>
                         <ul className="text-sm space-y-1">
@@ -254,6 +256,7 @@ const Dashboard = () => {
           </motion.div>
         </TabsContent>
         
+        {/* Insights Tab Content */}
         <TabsContent value="insights" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <motion.div
@@ -293,14 +296,13 @@ const Dashboard = () => {
                   </div>
                   <div className="mt-4 space-y-3">
                     {personalityData.map((trait, index) => (
-                      <div key={index}>
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-sm font-medium">{trait.trait}</span>
-                          <span className="text-sm text-therapy-text-muted">{trait.value}%</span>
-                        </div>
-                        <Progress value={trait.value} className="h-2 bg-therapy-muted" 
-                          indicatorClassName={`bg-[${COLORS[index % COLORS.length]}]`} />
-                      </div>
+                      <TraitProgress 
+                        key={index}
+                        trait={trait.trait}
+                        value={trait.value}
+                        colorIndex={index}
+                        colors={COLORS}
+                      />
                     ))}
                   </div>
                 </CardContent>

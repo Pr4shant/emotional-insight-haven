@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -36,13 +35,11 @@ const Dashboard = () => {
   }));
   
   // Format personality data for radar chart
-  const personalityData = [
-    Object.entries(mockUserPersonality.traits).reduce((obj, [trait, value]) => {
-      obj[trait] = value;
-      obj.fullMark = 100;
-      return obj;
-    }, {} as any)
-  ];
+  const personalityData = Object.entries(mockUserPersonality.traits).map(([key, value]) => ({
+    trait: key.charAt(0).toUpperCase() + key.slice(1),
+    value: value,
+    fullMark: 100
+  }));
   
   // Colors for the personality traits
   const COLORS = ['#9b87f5', '#7E69AB', '#64c9cc', '#6c5ce7', '#a29bfe'];
@@ -280,18 +277,15 @@ const Dashboard = () => {
                     <ResponsiveContainer width="100%" height={300}>
                       <RadarChart cx="50%" cy="50%" outerRadius="80%" data={personalityData}>
                         <PolarGrid />
-                        <PolarAngleAxis dataKey="name" />
+                        <PolarAngleAxis dataKey="trait" />
                         <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                        {Object.keys(mockUserPersonality.traits).map((key, index) => (
-                          <Radar 
-                            key={key}
-                            name={key.charAt(0).toUpperCase() + key.slice(1)} 
-                            dataKey={key} 
-                            stroke={COLORS[index % COLORS.length]} 
-                            fill={COLORS[index % COLORS.length]} 
-                            fillOpacity={0.6} 
-                          />
-                        ))}
+                        <Radar 
+                          name="Personality Traits" 
+                          dataKey="value" 
+                          stroke="#9b87f5" 
+                          fill="#9b87f5" 
+                          fillOpacity={0.6} 
+                        />
                         <Tooltip />
                       </RadarChart>
                     </ResponsiveContainer>

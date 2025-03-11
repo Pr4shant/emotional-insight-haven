@@ -1,10 +1,9 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { mockTherapySessions, mockUserPersonality } from "@/lib/data";
 import { ChartContainer } from "@/components/ui/chart";
-import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
 import { Brain, Calendar, Clock, HeartPulse, TrendingUp } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
@@ -36,10 +35,13 @@ const Dashboard = () => {
   }));
   
   // Format personality data for radar chart
-  const personalityData = Object.entries(mockUserPersonality.traits).map(([trait, value]) => ({
-    trait: trait.charAt(0).toUpperCase() + trait.slice(1),
-    value: value
-  }));
+  const personalityData = [
+    Object.entries(mockUserPersonality.traits).reduce((obj, [trait, value]) => {
+      obj[trait] = value;
+      obj.fullMark = 100;
+      return obj;
+    }, {} as any)
+  ];
   
   // Colors for the personality traits
   const COLORS = ['#9b87f5', '#7E69AB', '#64c9cc', '#6c5ce7', '#a29bfe'];
@@ -275,31 +277,30 @@ const Dashboard = () => {
                 <CardContent>
                   <div className="flex justify-center">
                     <ResponsiveContainer width="100%" height={300}>
-                      <PieChart>
-                        <Pie
-                          data={personalityData}
-                          cx="50%"
-                          cy="50%"
-                          labelLine={false}
-                          outerRadius={80}
-                          fill="#8884d8"
-                          dataKey="value"
-                          label={({ trait, value }) => `${trait}: ${value}%`}
-                        >
-                          {personalityData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip formatter={(value) => [`${value}%`, 'Score']} />
-                      </PieChart>
+                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={personalityData}>
+                        <PolarGrid />
+                        <PolarAngleAxis dataKey="name" />
+                        <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                        {Object.keys(mockUserPersonality.traits).map((key, index) => (
+                          <Radar 
+                            key={key}
+                            name={key.charAt(0).toUpperCase() + key.slice(1)} 
+                            dataKey={key} 
+                            stroke={COLORS[index % COLORS.length]} 
+                            fill={COLORS[index % COLORS.length]} 
+                            fillOpacity={0.6} 
+                          />
+                        ))}
+                        <Tooltip />
+                      </RadarChart>
                     </ResponsiveContainer>
                   </div>
                   <div className="mt-4 space-y-3">
-                    {personalityData.map((trait, index) => (
+                    {Object.entries(mockUserPersonality.traits).map(([trait, value], index) => (
                       <TraitProgress 
                         key={index}
-                        trait={trait.trait}
-                        value={trait.value}
+                        trait={trait.charAt(0).toUpperCase() + trait.slice(1)}
+                        value={value}
                         colorIndex={index}
                         colors={COLORS}
                       />

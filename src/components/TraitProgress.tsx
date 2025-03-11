@@ -9,7 +9,7 @@ interface TraitProgressProps {
 }
 
 export function TraitProgress({ trait, value, colorIndex, colors }: TraitProgressProps) {
-  // Get the color directly from the array instead of using a template string with array access
+  // Get the color directly from the array instead of using a template string 
   const color = colors[colorIndex % colors.length];
   
   return (
@@ -21,7 +21,7 @@ export function TraitProgress({ trait, value, colorIndex, colors }: TraitProgres
       <Progress 
         value={value} 
         className="h-2 bg-therapy-muted" 
-        indicatorClassName={`bg-[${color}]`} 
+        indicatorClassName={`bg-${color}`} 
       />
     </div>
   );

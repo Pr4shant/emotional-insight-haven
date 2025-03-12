@@ -20,10 +20,10 @@ const TherapyPage = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  // Scroll to bottom of messages
+  // Scroll to bottom of messages whenever messages change or isThinking changes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isThinking]);
 
   // Handle preference toggle
   const togglePreference = (prefId: string) => {
@@ -202,7 +202,7 @@ const TherapyPage = () => {
             <Card className="border-border flex-1 flex flex-col">
               <CardContent className="p-6 flex-1 flex flex-col">
                 <div className="flex-1 overflow-y-auto pr-2 scrollbar-thin mb-4">
-                  <AnimatePresence mode="wait">
+                  <AnimatePresence mode="popLayout">
                     {messages.map((message) => (
                       <motion.div
                         key={message.id}
@@ -223,6 +223,7 @@ const TherapyPage = () => {
                         </div>
                       </motion.div>
                     ))}
+                    
                     {/* Typing indicator - Only show when isThinking is true */}
                     {isThinking && (
                       <motion.div

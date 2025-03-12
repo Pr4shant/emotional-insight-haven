@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,13 +8,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { mockUserSettings } from "@/lib/data";
-import { Bell, Clock, Smile, User, Key } from "lucide-react";
+import { Bell, Clock, Smile, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
 const Settings = () => {
   const [settings, setSettings] = useState(mockUserSettings);
-  const [apiKey, setApiKey] = useState(localStorage.getItem('openai_api_key') || '');
   const { toast } = useToast();
   
   const handleSubmit = (e: React.FormEvent) => {
@@ -39,22 +39,6 @@ const Settings = () => {
         [field]: value,
       },
     }));
-  };
-
-  const saveApiKey = () => {
-    if (apiKey.trim()) {
-      localStorage.setItem('openai_api_key', apiKey);
-      toast({
-        title: "API key saved",
-        description: "Your OpenAI API key has been saved successfully",
-      });
-    } else {
-      toast({
-        title: "API key required",
-        description: "Please enter a valid OpenAI API key",
-        variant: "destructive",
-      });
-    }
   };
   
   return (
@@ -239,47 +223,6 @@ const Settings = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Card className="border border-therapy-muted">
-              <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2">
-                  <Key className="h-5 w-5 text-therapy-accent" />
-                  OpenAI API Key
-                </CardTitle>
-                <CardDescription>
-                  Add your OpenAI API key to enable AI therapy features
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="api-key">API Key</Label>
-                    <Input
-                      id="api-key"
-                      type="password"
-                      value={apiKey}
-                      onChange={(e) => setApiKey(e.target.value)}
-                      placeholder="sk-..."
-                    />
-                    <p className="text-sm text-therapy-text-muted mt-1">
-                      Your API key is stored locally and never sent to our servers.
-                    </p>
-                  </div>
-                  <Button 
-                    onClick={saveApiKey}
-                    className="bg-therapy-accent hover:bg-therapy-secondary text-white"
-                  >
-                    Save API Key
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Card className="border border-therapy-muted">
               <CardHeader>

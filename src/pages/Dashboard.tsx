@@ -9,9 +9,11 @@ import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
 import { MoodProgress } from "@/components/MoodProgress";
 import { TraitProgress } from "@/components/TraitProgress";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const isMobile = useIsMobile();
   
   // Calculate session statistics
   const totalSessions = mockTherapySessions.length;
@@ -57,7 +59,7 @@ const Dashboard = () => {
       </motion.div>
       
       <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 bg-muted rounded-xl p-1">
+        <TabsList className={`grid w-full rounded-xl p-1 bg-muted ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-3'}`}>
           <TabsTrigger value="overview" className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary">
             Overview
           </TabsTrigger>

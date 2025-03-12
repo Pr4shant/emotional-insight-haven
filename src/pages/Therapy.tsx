@@ -108,7 +108,7 @@ const TherapyPage = () => {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold mb-2">Therapy Session</h1>
-        <p className="text-therapy-text-muted">Personalized support for your mental wellness</p>
+        <p className="text-muted-foreground">Personalized support for your mental wellness</p>
       </motion.div>
       
       <Tabs 
@@ -116,11 +116,11 @@ const TherapyPage = () => {
         onValueChange={setActiveTab} 
         className="flex-1 flex flex-col"
       >
-        <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-6 bg-therapy-muted rounded-xl p-1">
+        <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-6 bg-muted rounded-xl p-1">
           <TabsTrigger 
             value="preferences" 
             disabled={sessionStarted}
-            className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-therapy-accent"
+            className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary"
           >
             <Settings className="h-4 w-4 mr-2" />
             Preferences
@@ -128,7 +128,7 @@ const TherapyPage = () => {
           <TabsTrigger 
             value="chat" 
             disabled={!sessionStarted}
-            className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-therapy-accent"
+            className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary"
           >
             <MessageCircle className="h-4 w-4 mr-2" />
             Therapy Chat
@@ -136,15 +136,15 @@ const TherapyPage = () => {
         </TabsList>
         
         <TabsContent value="preferences" className="flex-1 flex flex-col">
-          <Card className="border border-therapy-muted flex-1">
+          <Card className="border-border flex-1">
             <CardContent className="p-6">
               <div className="max-w-2xl mx-auto">
                 <div className="text-center mb-8">
-                  <div className="h-16 w-16 rounded-full bg-therapy-muted flex items-center justify-center mx-auto mb-4">
-                    <Brain className="h-8 w-8 text-therapy-accent" />
+                  <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                    <Brain className="h-8 w-8 text-primary" />
                   </div>
                   <h2 className="text-2xl font-bold mb-2">Customize Your Therapy Experience</h2>
-                  <p className="text-therapy-text-muted">
+                  <p className="text-muted-foreground">
                     Select the therapy approaches that resonate with you for a personalized session.
                   </p>
                 </div>
@@ -159,23 +159,23 @@ const TherapyPage = () => {
                       <Card 
                         className={`border cursor-pointer transition-all duration-300 ${
                           preferences.includes(pref.id) 
-                            ? "border-therapy-accent bg-therapy-accent/5" 
-                            : "border-therapy-muted hover:border-therapy-accent/30"
+                            ? "border-primary bg-primary/5" 
+                            : "border-muted hover:border-primary/30"
                         }`}
                         onClick={() => togglePreference(pref.id)}
                       >
                         <CardContent className="p-4 flex items-start gap-4">
-                          <div className="h-10 w-10 rounded-full bg-therapy-muted flex items-center justify-center flex-shrink-0">
-                            {pref.icon === "brain" && <Brain className="h-5 w-5 text-therapy-accent" />}
-                            {pref.icon === "leaf" && <Sun className="h-5 w-5 text-therapy-accent" />}
-                            {pref.icon === "lightbulb" && <svg className="h-5 w-5 text-therapy-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
+                            {pref.icon === "brain" && <Brain className="h-5 w-5 text-primary" />}
+                            {pref.icon === "leaf" && <Sun className="h-5 w-5 text-primary" />}
+                            {pref.icon === "lightbulb" && <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                             </svg>}
-                            {pref.icon === "heart" && <Smile className="h-5 w-5 text-therapy-accent" />}
+                            {pref.icon === "heart" && <Smile className="h-5 w-5 text-primary" />}
                           </div>
                           <div>
                             <h3 className="font-medium mb-1">{pref.name}</h3>
-                            <p className="text-sm text-therapy-text-muted">{pref.description}</p>
+                            <p className="text-sm text-muted-foreground">{pref.description}</p>
                           </div>
                         </CardContent>
                       </Card>
@@ -186,7 +186,7 @@ const TherapyPage = () => {
                 <div className="flex justify-center">
                   <Button 
                     size="lg" 
-                    className="bg-therapy-accent hover:bg-therapy-secondary text-white rounded-xl"
+                    className="rounded-xl"
                     onClick={startSession}
                   >
                     Start Therapy Session <ChevronRight className="ml-2 h-4 w-4" />
@@ -199,10 +199,10 @@ const TherapyPage = () => {
         
         <TabsContent value="chat" className="flex-1 flex flex-col">
           {sessionStarted ? (
-            <Card className="border border-therapy-muted flex-1 flex flex-col">
+            <Card className="border-border flex-1 flex flex-col">
               <CardContent className="p-6 flex-1 flex flex-col">
                 <div className="flex-1 overflow-y-auto pr-2 scrollbar-thin mb-4">
-                  <AnimatePresence>
+                  <AnimatePresence mode="wait">
                     {messages.map((message) => (
                       <motion.div
                         key={message.id}
@@ -215,24 +215,27 @@ const TherapyPage = () => {
                         <div 
                           className={`max-w-[80%] p-4 rounded-xl ${
                             message.role === "user" 
-                              ? "bg-therapy-accent text-white rounded-tr-none" 
-                              : "bg-therapy-muted rounded-tl-none"
+                              ? "bg-primary text-primary-foreground rounded-tr-none" 
+                              : "bg-muted rounded-tl-none"
                           }`}
                         >
                           <p>{message.content}</p>
                         </div>
                       </motion.div>
                     ))}
+                    {/* Typing indicator - Only show when isThinking is true */}
                     {isThinking && (
                       <motion.div
+                        key="typing-indicator"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
                         className="flex justify-start"
                       >
-                        <div className="bg-therapy-muted p-4 rounded-xl rounded-tl-none flex items-center space-x-2 max-w-[80%]">
-                          <div className="w-2 h-2 rounded-full bg-therapy-accent animate-pulse"></div>
-                          <div className="w-2 h-2 rounded-full bg-therapy-accent animate-pulse delay-150"></div>
-                          <div className="w-2 h-2 rounded-full bg-therapy-accent animate-pulse delay-300"></div>
+                        <div className="bg-muted p-4 rounded-xl rounded-tl-none flex items-center space-x-2 max-w-[80%]">
+                          <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                          <div className="w-2 h-2 rounded-full bg-primary animate-pulse delay-150"></div>
+                          <div className="w-2 h-2 rounded-full bg-primary animate-pulse delay-300"></div>
                         </div>
                       </motion.div>
                     )}
@@ -249,8 +252,7 @@ const TherapyPage = () => {
                     className="flex-1"
                   />
                   <Button 
-                    onClick={sendMessage} 
-                    className="bg-therapy-accent hover:bg-therapy-secondary text-white"
+                    onClick={sendMessage}
                     size="icon"
                   >
                     <Send className="h-4 w-4" />
@@ -260,19 +262,19 @@ const TherapyPage = () => {
             </Card>
           ) : (
             <div className="flex-1 flex items-center justify-center">
-              <Card className="border border-therapy-muted w-full max-w-md text-center p-8">
+              <Card className="border-border w-full max-w-md text-center p-8">
                 <CardContent className="p-6">
-                  <div className="h-16 w-16 rounded-full bg-therapy-muted flex items-center justify-center mx-auto mb-4">
-                    <MessageCircle className="h-8 w-8 text-therapy-accent" />
+                  <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                    <MessageCircle className="h-8 w-8 text-primary" />
                   </div>
                   <h2 className="text-xl font-bold mb-2">Set Your Preferences First</h2>
-                  <p className="text-therapy-text-muted mb-4">
+                  <p className="text-muted-foreground mb-4">
                     Please select your therapy preferences before starting a session.
                   </p>
                   <Button
                     onClick={() => setActiveTab("preferences")}
                     variant="outline"
-                    className="border-therapy-accent text-therapy-accent hover:bg-therapy-accent/10"
+                    className="border-primary text-primary hover:bg-primary/10"
                   >
                     Go to Preferences
                   </Button>

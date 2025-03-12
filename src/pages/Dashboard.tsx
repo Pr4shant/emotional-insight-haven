@@ -1,8 +1,8 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { mockTherapySessions, mockUserPersonality } from "@/lib/data";
-import { ChartContainer } from "@/components/ui/chart";
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell } from "recharts";
 import { Brain, Calendar, Clock, HeartPulse, TrendingUp } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -41,8 +41,8 @@ const Dashboard = () => {
     fullMark: 100
   }));
   
-  // Colors for the personality traits
-  const COLORS = ['#9b87f5', '#7E69AB', '#64c9cc', '#6c5ce7', '#a29bfe'];
+  // Updated color palette with more appealing colors
+  const COLORS = ['#845EF7', '#5C7CFA', '#339AF0', '#22B8CF', '#20C997'];
   
   return (
     <div className="container mx-auto px-4 pt-20 pb-10">
@@ -53,18 +53,18 @@ const Dashboard = () => {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold mb-2">Your Wellness Dashboard</h1>
-        <p className="text-therapy-text-muted">Track your therapy journey and gain insights about yourself</p>
+        <p className="text-muted-foreground">Track your therapy journey and gain insights about yourself</p>
       </motion.div>
       
       <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 bg-therapy-muted rounded-xl p-1">
-          <TabsTrigger value="overview" className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-therapy-accent">
+        <TabsList className="grid w-full grid-cols-3 bg-muted rounded-xl p-1">
+          <TabsTrigger value="overview" className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary">
             Overview
           </TabsTrigger>
-          <TabsTrigger value="sessions" className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-therapy-accent">
+          <TabsTrigger value="sessions" className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary">
             Session History
           </TabsTrigger>
-          <TabsTrigger value="insights" className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-therapy-accent">
+          <TabsTrigger value="insights" className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary">
             Personality Insights
           </TabsTrigger>
         </TabsList>
@@ -131,10 +131,10 @@ const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <Card className="border border-therapy-muted h-full">
+              <Card className="border-border h-full">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg flex items-center gap-2">
-                    <HeartPulse className="h-4 w-4 text-therapy-accent" />
+                    <HeartPulse className="h-4 w-4 text-primary" />
                     Mood Tracking
                   </CardTitle>
                   <CardDescription>Before and after therapy sessions</CardDescription>
@@ -147,20 +147,20 @@ const Dashboard = () => {
                     >
                       <defs>
                         <linearGradient id="colorBefore" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#7E69AB" stopOpacity={0.1}/>
-                          <stop offset="95%" stopColor="#7E69AB" stopOpacity={0}/>
+                          <stop offset="5%" stopColor="#5C7CFA" stopOpacity={0.2}/>
+                          <stop offset="95%" stopColor="#5C7CFA" stopOpacity={0}/>
                         </linearGradient>
                         <linearGradient id="colorAfter" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#9b87f5" stopOpacity={0.2}/>
-                          <stop offset="95%" stopColor="#9b87f5" stopOpacity={0}/>
+                          <stop offset="5%" stopColor="#845EF7" stopOpacity={0.3}/>
+                          <stop offset="95%" stopColor="#845EF7" stopOpacity={0}/>
                         </linearGradient>
                       </defs>
                       <XAxis dataKey="date" fontSize={12} tickLine={false} axisLine={false} />
                       <YAxis domain={[0, 10]} fontSize={12} tickLine={false} axisLine={false} />
                       <CartesianGrid vertical={false} strokeDasharray="3 3" opacity={0.2} />
                       <Tooltip />
-                      <Area type="monotone" dataKey="before" stroke="#7E69AB" strokeWidth={2} fillOpacity={1} fill="url(#colorBefore)" name="Before Session" />
-                      <Area type="monotone" dataKey="after" stroke="#9b87f5" strokeWidth={2} fillOpacity={1} fill="url(#colorAfter)" name="After Session" />
+                      <Area type="monotone" dataKey="before" stroke="#5C7CFA" strokeWidth={2} fillOpacity={1} fill="url(#colorBefore)" name="Before Session" />
+                      <Area type="monotone" dataKey="after" stroke="#845EF7" strokeWidth={2} fillOpacity={1} fill="url(#colorAfter)" name="After Session" />
                     </AreaChart>
                   </ResponsiveContainer>
                 </CardContent>
@@ -173,10 +173,10 @@ const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <Card className="border border-therapy-muted h-full">
+              <Card className="border-border h-full">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-therapy-accent" />
+                    <Clock className="h-4 w-4 text-primary" />
                     Session Duration
                   </CardTitle>
                   <CardDescription>Minutes spent in each therapy session</CardDescription>
@@ -193,7 +193,7 @@ const Dashboard = () => {
                       <Tooltip />
                       <Bar dataKey="duration" name="Duration (minutes)" radius={[4, 4, 0, 0]}>
                         {durationData.map((_, index) => (
-                          <Cell key={`cell-${index}`} fill="#9b87f5" />
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Bar>
                     </BarChart>
@@ -264,10 +264,10 @@ const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="border border-therapy-muted h-full">
+              <Card className="border-border h-full">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
-                    <Brain className="h-4 w-4 text-therapy-accent" />
+                    <Brain className="h-4 w-4 text-primary" />
                     Personality Profile
                   </CardTitle>
                   <CardDescription>Your Big Five personality traits</CardDescription>
@@ -276,17 +276,20 @@ const Dashboard = () => {
                   <div className="flex justify-center">
                     <ResponsiveContainer width="100%" height={300}>
                       <RadarChart cx="50%" cy="50%" outerRadius="80%" data={personalityData}>
-                        <PolarGrid />
-                        <PolarAngleAxis dataKey="trait" />
-                        <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                        <PolarGrid strokeOpacity={0.3} strokeDasharray="3 3" />
+                        <PolarAngleAxis dataKey="trait" tick={{ fill: "hsl(var(--foreground))", fontSize: 12 }} />
+                        <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: "hsl(var(--foreground))", fontSize: 10 }} 
+                          axisLine={false} tickCount={5} />
                         <Radar 
                           name="Personality Traits" 
                           dataKey="value" 
-                          stroke="#9b87f5" 
-                          fill="#9b87f5" 
-                          fillOpacity={0.6} 
+                          stroke="#845EF7" 
+                          fill="#845EF7" 
+                          fillOpacity={0.4}
+                          animationBegin={0}
+                          animationDuration={1500} 
                         />
-                        <Tooltip />
+                        <Tooltip contentStyle={{ borderRadius: "0.5rem", backgroundColor: "hsl(var(--background))", borderColor: "hsl(var(--border))" }} />
                       </RadarChart>
                     </ResponsiveContainer>
                   </div>

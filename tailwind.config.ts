@@ -65,8 +65,8 @@ export default {
 				},
 				therapy: {
 					light: '#F2FCE2',
-					accent: '#9b87f5',
-					secondary: '#7E69AB',
+					accent: '#845EF7',
+					secondary: '#5C7CFA',
 					muted: '#F1F0FB',
 					text: '#403E43',
 					'text-muted': '#8A898C'

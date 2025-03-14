@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -75,12 +76,12 @@ export default {
 					}
 				},
 				futuristic: {
-					primary: '#6E56CF',
-					secondary: '#7C66DC',
-					accent: '#9B7BFF',
-					highlight: '#AF8DFF',
-					muted: '#D9CFFC',
-					background: '#F8F7FC',
+					primary: '#333333',
+					secondary: '#555555',
+					accent: '#888888',
+					highlight: '#FFFFFF',
+					muted: '#222222',
+					background: '#000000',
 				}
 			},
 			borderRadius: {
@@ -142,11 +143,11 @@ export default {
 				'pulse-glow': {
 					'0%, 100%': { 
 						opacity: '1',
-						boxShadow: '0 0 10px rgba(156, 124, 255, 0.5)'
+						boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)'
 					},
 					'50%': { 
 						opacity: '0.85',
-						boxShadow: '0 0 20px rgba(156, 124, 255, 0.8)'
+						boxShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
 					}
 				},
 				'float': {
@@ -169,8 +170,8 @@ export default {
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-				'gradient-futuristic': 'linear-gradient(90deg, hsla(255, 70%, 57%, 1) 0%, hsla(245, 65%, 63%, 1) 100%)',
-				'gradient-card': 'linear-gradient(135deg, rgba(156, 124, 255, 0.1) 0%, rgba(111, 86, 220, 0.1) 100%)',
+				'gradient-futuristic': 'linear-gradient(90deg, hsla(0, 0%, 20%, 1) 0%, hsla(0, 0%, 0%, 1) 100%)',
+				'gradient-card': 'linear-gradient(135deg, rgba(50, 50, 50, 0.1) 0%, rgba(20, 20, 20, 0.1) 100%)',
 			}
 		}
 	},

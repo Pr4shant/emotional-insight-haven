@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -69,7 +68,19 @@ export default {
 					secondary: '#5C7CFA',
 					muted: '#F1F0FB',
 					text: '#403E43',
-					'text-muted': '#8A898C'
+					'text-muted': '#8A898C',
+					gradient: {
+						from: '#845EF7',
+						to: '#5C7CFA',
+					}
+				},
+				futuristic: {
+					primary: '#6E56CF',
+					secondary: '#7C66DC',
+					accent: '#9B7BFF',
+					highlight: '#AF8DFF',
+					muted: '#D9CFFC',
+					background: '#F8F7FC',
 				}
 			},
 			borderRadius: {
@@ -127,6 +138,20 @@ export default {
 				'pulse-subtle': {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.8' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { 
+						opacity: '1',
+						boxShadow: '0 0 10px rgba(156, 124, 255, 0.5)'
+					},
+					'50%': { 
+						opacity: '0.85',
+						boxShadow: '0 0 20px rgba(156, 124, 255, 0.8)'
+					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
 				}
 			},
 			animation: {
@@ -137,7 +162,15 @@ export default {
 				'scale-in': 'scale-in 0.3s ease-out',
 				'slide-in': 'slide-in 0.3s ease-out',
 				'slide-out': 'slide-out 0.3s ease-out',
-				'pulse-subtle': 'pulse-subtle 2s ease-in-out infinite'
+				'pulse-subtle': 'pulse-subtle 2s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+				'float': 'float 5s ease-in-out infinite'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-futuristic': 'linear-gradient(90deg, hsla(255, 70%, 57%, 1) 0%, hsla(245, 65%, 63%, 1) 100%)',
+				'gradient-card': 'linear-gradient(135deg, rgba(156, 124, 255, 0.1) 0%, rgba(111, 86, 220, 0.1) 100%)',
 			}
 		}
 	},

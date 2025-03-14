@@ -20,7 +20,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen bg-black text-white">
+        <div className="min-h-screen bg-gradient-to-b from-background to-futuristic-background">
           <Navbar />
           <AnimatePresence mode="wait">
             <Routes>

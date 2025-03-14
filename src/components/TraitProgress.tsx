@@ -9,9 +9,8 @@ interface TraitProgressProps {
 }
 
 export function TraitProgress({ trait, value, colorIndex, colors }: TraitProgressProps) {
-  // We'll use just grayscale colors regardless of the passed colors
-  const grayscaleColors = ['#FFFFFF', '#CCCCCC', '#999999', '#666666', '#333333'];
-  const color = grayscaleColors[colorIndex % grayscaleColors.length];
+  // Get the color directly from the array
+  const color = colors[colorIndex % colors.length];
   
   return (
     <div>
@@ -21,7 +20,7 @@ export function TraitProgress({ trait, value, colorIndex, colors }: TraitProgres
       </div>
       <Progress 
         value={value} 
-        className="h-2 bg-black/30" 
+        className="h-2 bg-therapy-muted" 
         indicatorClassName={`bg-[${color}]`} 
       />
     </div>

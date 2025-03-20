@@ -63,24 +63,24 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				therapy: {
-					light: '#FEF7CD',
-					accent: '#D4A657',
-					secondary: '#C8934A',
-					muted: '#F7F0DB',
-					text: '#4A3F35',
-					'text-muted': '#7D6E5D',
+					light: '#F2FCE2',
+					accent: '#845EF7',
+					secondary: '#5C7CFA',
+					muted: '#F1F0FB',
+					text: '#403E43',
+					'text-muted': '#8A898C',
 					gradient: {
-						from: '#D4A657',
-						to: '#C8934A',
+						from: '#845EF7',
+						to: '#5C7CFA',
 					}
 				},
 				futuristic: {
-					primary: '#D4A657',
-					secondary: '#C8934A',
-					accent: '#E8C989',
-					highlight: '#F3D9A3',
-					muted: '#F7F0DB',
-					background: '#FEF7E5',
+					primary: '#6E56CF',
+					secondary: '#7C66DC',
+					accent: '#9B7BFF',
+					highlight: '#AF8DFF',
+					muted: '#D9CFFC',
+					background: '#F8F7FC',
 				}
 			},
 			borderRadius: {

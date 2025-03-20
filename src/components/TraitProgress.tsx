@@ -15,12 +15,12 @@ export function TraitProgress({ trait, value, colorIndex, colors }: TraitProgres
   return (
     <div>
       <div className="flex justify-between items-center mb-1">
-        <span className="text-sm font-medium">{trait}</span>
+        <span className="text-sm font-medium text-therapy-text">{trait}</span>
         <span className="text-sm text-therapy-text-muted">{value}%</span>
       </div>
       <Progress 
         value={value} 
-        className="h-2 bg-therapy-muted" 
+        className="h-2.5 bg-therapy-muted rounded-full" 
         indicatorClassName={`bg-[${color}]`} 
       />
     </div>

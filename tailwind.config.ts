@@ -64,15 +64,15 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				therapy: {
-					light: '#F2F2F2',
+					light: '#FFFFFF',
 					accent: '#FFFFFF',
 					secondary: '#E0E0E0',
-					muted: '#1A1A1A',
+					muted: '#333333',
 					text: '#FFFFFF',
-					'text-muted': '#A0A0A0',
+					'text-muted': '#CCCCCC',
 					gradient: {
 						from: '#FFFFFF',
-						to: '#A0A0A0',
+						to: '#CCCCCC',
 					}
 				},
 				futuristic: {

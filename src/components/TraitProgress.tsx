@@ -13,15 +13,15 @@ export function TraitProgress({ trait, value, colorIndex, colors }: TraitProgres
   const color = colors[colorIndex % colors.length];
   
   return (
-    <div className="group">
+    <div>
       <div className="flex justify-between items-center mb-1">
-        <span className="text-sm font-medium text-white/90">{trait}</span>
-        <span className="text-sm text-white/70">{value}%</span>
+        <span className="text-sm font-medium">{trait}</span>
+        <span className="text-sm text-therapy-text-muted">{value}%</span>
       </div>
       <Progress 
         value={value} 
-        className="h-2.5 bg-white/10" 
-        indicatorClassName="bg-white/80 shadow-[0_0_8px_rgba(255,255,255,0.3)]" 
+        className="h-2 bg-therapy-muted" 
+        indicatorClassName={`bg-[${color}]`} 
       />
     </div>
   );

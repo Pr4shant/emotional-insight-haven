@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,24 +64,24 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				therapy: {
-					light: '#F2FCE2',
-					accent: '#845EF7',
-					secondary: '#5C7CFA',
-					muted: '#F1F0FB',
-					text: '#403E43',
-					'text-muted': '#8A898C',
+					light: '#F2F2F2',
+					accent: '#FFFFFF',
+					secondary: '#E0E0E0',
+					muted: '#1A1A1A',
+					text: '#FFFFFF',
+					'text-muted': '#A0A0A0',
 					gradient: {
-						from: '#845EF7',
-						to: '#5C7CFA',
+						from: '#FFFFFF',
+						to: '#A0A0A0',
 					}
 				},
 				futuristic: {
-					primary: '#6E56CF',
-					secondary: '#7C66DC',
-					accent: '#9B7BFF',
-					highlight: '#AF8DFF',
-					muted: '#D9CFFC',
-					background: '#F8F7FC',
+					primary: '#FFFFFF',
+					secondary: '#E0E0E0',
+					accent: '#FFFFFF',
+					highlight: '#EEEEEE',
+					muted: '#303030',
+					background: '#121212',
 				}
 			},
 			borderRadius: {
@@ -142,11 +143,11 @@ export default {
 				'pulse-glow': {
 					'0%, 100%': { 
 						opacity: '1',
-						boxShadow: '0 0 10px rgba(156, 124, 255, 0.5)'
+						boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)'
 					},
 					'50%': { 
 						opacity: '0.85',
-						boxShadow: '0 0 20px rgba(156, 124, 255, 0.8)'
+						boxShadow: '0 0 20px rgba(255, 255, 255, 0.5)'
 					}
 				},
 				'float': {
@@ -169,8 +170,8 @@ export default {
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-				'gradient-futuristic': 'linear-gradient(90deg, hsla(255, 70%, 57%, 1) 0%, hsla(245, 65%, 63%, 1) 100%)',
-				'gradient-card': 'linear-gradient(135deg, rgba(156, 124, 255, 0.1) 0%, rgba(111, 86, 220, 0.1) 100%)',
+				'gradient-futuristic': 'linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(200, 200, 200, 0.9) 100%)',
+				'gradient-card': 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(200, 200, 200, 0.05) 100%)',
 			}
 		}
 	},

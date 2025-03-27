@@ -1,7 +1,7 @@
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Brain, LayoutDashboard, LifeBuoy, Menu, Settings, Sparkles } from "lucide-react";
+import { Brain, LayoutDashboard, LifeBuoy, Menu, Settings, Sparkles, Map } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState, useEffect } from "react";
 
@@ -16,6 +16,7 @@ const Navbar = () => {
     { name: "Home", path: "/", icon: LifeBuoy },
     { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
     { name: "Therapy", path: "/therapy", icon: Brain },
+    { name: "Journey", path: "/journey", icon: Map },
     { name: "Settings", path: "/settings", icon: Settings },
   ];
 
@@ -42,7 +43,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-futuristic-accent animate-pulse-glow" />
+            <Sparkles className="h-6 w-6 text-amber-500 animate-pulse-glow" />
             <span className="font-medium text-xl text-gradient">Serenity</span>
           </div>
         </div>
@@ -55,12 +56,12 @@ const Navbar = () => {
                 variant={isActive(link.path) ? "default" : "ghost"}
                 className={`gap-2 transition-all duration-300 ${
                   isActive(link.path) 
-                    ? "bg-gradient-futuristic text-white shadow-md" 
-                    : "hover:bg-white/20 hover:backdrop-blur-sm"
+                    ? "bg-gradient-to-r from-amber-400 to-amber-600 text-white shadow-md" 
+                    : "hover:bg-amber-100/20 hover:backdrop-blur-sm"
                 }`}
                 onClick={() => navigate(link.path)}
               >
-                <link.icon className={`h-4 w-4 ${isActive(link.path) ? "text-white" : "text-futuristic-accent"}`} />
+                <link.icon className={`h-4 w-4 ${isActive(link.path) ? "text-white" : "text-amber-600"}`} />
                 <span>{link.name}</span>
               </Button>
             ))}
@@ -70,7 +71,7 @@ const Navbar = () => {
             variant="ghost"
             size="icon"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="relative z-20 text-futuristic-accent"
+            className="relative z-20 text-amber-600"
           >
             <Menu className="h-5 w-5" />
           </Button>
@@ -86,8 +87,8 @@ const Navbar = () => {
                   size="lg"
                   className={`gap-3 transition-all duration-300 ${
                     isActive(link.path) 
-                      ? "bg-gradient-futuristic text-white shadow-md button-glow" 
-                      : "text-white hover:text-futuristic-accent hover:bg-white/10"
+                      ? "bg-gradient-to-r from-amber-400 to-amber-600 text-white shadow-md button-glow" 
+                      : "text-white hover:text-amber-500 hover:bg-white/10"
                   }`}
                   onClick={() => navigate(link.path)}
                 >

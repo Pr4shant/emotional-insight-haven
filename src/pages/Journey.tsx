@@ -8,7 +8,7 @@ import { JourneyMilestoneCard } from "@/components/JourneyMilestone";
 import { mockJourneyTasks, mockJourneyMilestones } from "@/lib/journey-data";
 import { motion } from "framer-motion";
 import { toast } from "@/hooks/use-toast";
-import { MapPin, Calendar, Filter, RefreshCw, BarChart3 } from "lucide-react";
+import { MapPin, Calendar, Filter, RefreshCw, BarChart3, Trophy, Star, Swords } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -33,13 +33,13 @@ const JourneyPage = () => {
           // Show toast notification
           if (newStatus === "completed") {
             toast({
-              title: "Task completed! 🎉",
+              title: "Quest completed! 🎉",
               description: `You earned ${task.xpReward} XP for completing "${task.title}"`,
             });
           } else if (newStatus === "in-progress") {
             toast({
-              title: "Task started",
-              description: `You've started working on "${task.title}"`,
+              title: "Quest started",
+              description: `You've embarked on "${task.title}"`,
             });
           }
           
@@ -57,8 +57,6 @@ const JourneyPage = () => {
   
   // Update milestone progress
   const updateMilestones = (taskId: string) => {
-    // This is a simplified version. In a real app, you would have logic to
-    // determine which milestone(s) the task contributes to
     setMilestones(prevMilestones => 
       prevMilestones.map(milestone => {
         // For demo purposes, increase progress on non-completed milestones
@@ -69,8 +67,8 @@ const JourneyPage = () => {
           // Show toast if milestone completed
           if (isNowCompleted) {
             toast({
-              title: "Milestone achieved! 🏆",
-              description: `You've completed "${milestone.title}" and earned ${milestone.reward.xp} XP!`,
+              title: "Achievement unlocked! 🏆",
+              description: `You've mastered "${milestone.title}" and earned ${milestone.reward.xp} XP!`,
               variant: "default",
             });
           }
@@ -126,77 +124,85 @@ const JourneyPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 pt-20 pb-10 min-h-screen">
+    <div className="container mx-auto px-4 pt-24 pb-10 min-h-screen bg-amber-50/30">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mb-8"
+        className="mb-8 text-center"
       >
-        <h1 className="text-3xl font-bold mb-2">Your Wellness Journey</h1>
-        <p className="text-muted-foreground">Track your progress and build healthy habits</p>
+        <div className="inline-block bg-amber-100 px-4 py-2 rounded-full mb-3">
+          <Swords className="h-6 w-6 text-amber-600 inline-block mr-2" />
+          <span className="font-bold text-amber-800">Your Wellness Adventure</span>
+        </div>
+        <h1 className="text-3xl font-bold mb-2 text-amber-900">Wellness Quest Journal</h1>
+        <p className="text-muted-foreground">Complete quests, earn rewards, and level up your wellbeing</p>
       </motion.div>
       
       {/* Stats Overview */}
       <motion.div 
-        className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10"
         variants={containerVariants}
         initial="hidden"
         animate="show"
       >
         <motion.div variants={itemVariants}>
-          <Card>
+          <Card className="border-2 border-amber-200 overflow-hidden">
+            <div className="h-1 bg-amber-400 w-full"></div>
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-muted-foreground">Completion Rate</h3>
-                <BarChart3 className="h-4 w-4 text-muted-foreground" />
+                <h3 className="text-sm font-medium text-amber-700">Quest Progress</h3>
+                <BarChart3 className="h-4 w-4 text-amber-500" />
               </div>
-              <p className="text-2xl font-bold mt-2">{Math.round(completionRate)}%</p>
-              <Progress value={completionRate} className="h-1.5 mt-2" />
+              <p className="text-2xl font-bold mt-2 text-amber-900">{Math.round(completionRate)}%</p>
+              <Progress value={completionRate} className="h-2 mt-2 bg-amber-100" />
             </CardContent>
           </Card>
         </motion.div>
         
         <motion.div variants={itemVariants}>
-          <Card>
+          <Card className="border-2 border-amber-200 overflow-hidden">
+            <div className="h-1 bg-amber-400 w-full"></div>
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-muted-foreground">Tasks Completed</h3>
-                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <h3 className="text-sm font-medium text-amber-700">Quests Completed</h3>
+                <Calendar className="h-4 w-4 text-amber-500" />
               </div>
-              <p className="text-2xl font-bold mt-2">{completedTasks} / {totalTasks}</p>
-              <div className="text-xs text-muted-foreground mt-2">
-                {totalTasks - completedTasks} tasks remaining
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-        
-        <motion.div variants={itemVariants}>
-          <Card>
-            <CardContent className="p-5">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-muted-foreground">XP Earned</h3>
-                <Badge className="bg-primary/10 text-primary">XP</Badge>
-              </div>
-              <p className="text-2xl font-bold mt-2">{totalXpEarned}</p>
-              <div className="text-xs text-muted-foreground mt-2">
-                From completed tasks & milestones
+              <p className="text-2xl font-bold mt-2 text-amber-900">{completedTasks} / {totalTasks}</p>
+              <div className="text-xs text-amber-700 mt-2">
+                {totalTasks - completedTasks} quests remaining
               </div>
             </CardContent>
           </Card>
         </motion.div>
         
         <motion.div variants={itemVariants}>
-          <Card>
+          <Card className="border-2 border-amber-200 overflow-hidden">
+            <div className="h-1 bg-amber-400 w-full"></div>
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-muted-foreground">Current Streak</h3>
-                <RefreshCw className="h-4 w-4 text-muted-foreground" />
+                <h3 className="text-sm font-medium text-amber-700">XP Earned</h3>
+                <Star className="h-4 w-4 text-amber-500" />
               </div>
-              <p className="text-2xl font-bold mt-2">3 days</p>
-              <div className="text-xs text-muted-foreground mt-2">
-                Keep it going!
+              <p className="text-2xl font-bold mt-2 text-amber-900">{totalXpEarned}</p>
+              <div className="text-xs text-amber-700 mt-2">
+                From completed quests & achievements
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+        
+        <motion.div variants={itemVariants}>
+          <Card className="border-2 border-amber-200 overflow-hidden">
+            <div className="h-1 bg-amber-400 w-full"></div>
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-medium text-amber-700">Current Streak</h3>
+                <RefreshCw className="h-4 w-4 text-amber-500" />
+              </div>
+              <p className="text-2xl font-bold mt-2 text-amber-900">3 days</p>
+              <div className="text-xs text-amber-700 mt-2">
+                Keep your momentum going!
               </div>
             </CardContent>
           </Card>
@@ -208,22 +214,26 @@ const JourneyPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="mb-8"
+        className="mb-10 bg-white p-6 rounded-xl shadow-sm border border-amber-100"
       >
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Milestones</h2>
-          <div className="text-sm text-muted-foreground">
-            {milestones.filter(m => m.completed).length} / {milestones.length} completed
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center">
+            <Trophy className="h-5 w-5 text-amber-500 mr-2" />
+            <h2 className="text-xl font-bold text-amber-900">Achievements</h2>
+          </div>
+          <div className="text-sm bg-amber-100 px-3 py-1 rounded-full text-amber-700">
+            {milestones.filter(m => m.completed).length} / {milestones.length} unlocked
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {milestones.map((milestone) => (
             <motion.div
               key={milestone.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
+              whileHover={{ scale: 1.02 }}
             >
               <JourneyMilestoneCard milestone={milestone} />
             </motion.div>
@@ -232,14 +242,17 @@ const JourneyPage = () => {
       </motion.div>
       
       {/* Tasks Section */}
-      <div className="mb-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Your Tasks</h2>
+      <div className="bg-white p-6 rounded-xl shadow-sm border border-amber-100 mb-10">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center">
+            <Swords className="h-5 w-5 text-amber-500 mr-2" />
+            <h2 className="text-xl font-bold text-amber-900">Active Quests</h2>
+          </div>
           <Button 
             variant="outline" 
             size="sm"
             onClick={() => setActiveFilter(null)}
-            className="text-xs"
+            className="text-xs border-amber-200 text-amber-700 hover:bg-amber-50"
           >
             <Filter className="h-3 w-3 mr-1" /> 
             {activeFilter ? "Clear Filters" : "Filters"}
@@ -248,15 +261,15 @@ const JourneyPage = () => {
         
         {/* Category Filters */}
         {categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-5 bg-amber-50 p-3 rounded-lg">
             {categories.map((category) => (
               <Badge 
                 key={category}
                 variant="outline"
-                className={`cursor-pointer ${
+                className={`cursor-pointer border px-3 py-1 ${
                   activeFilter === category 
-                    ? "bg-primary/10 text-primary border-primary" 
-                    : ""
+                    ? "bg-amber-200 text-amber-800 border-amber-300" 
+                    : "bg-white text-amber-700 border-amber-200 hover:bg-amber-100"
                 }`}
                 onClick={() => setActiveFilter(activeFilter === category ? null : category)}
               >
@@ -267,18 +280,18 @@ const JourneyPage = () => {
         )}
         
         {/* Tabs for task status */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
-          <TabsList className="grid grid-cols-4 w-full max-w-md">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="pending">To Do</TabsTrigger>
-            <TabsTrigger value="in-progress">In Progress</TabsTrigger>
-            <TabsTrigger value="completed">Completed</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+          <TabsList className="grid grid-cols-4 w-full max-w-md bg-amber-100">
+            <TabsTrigger value="all" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white">All</TabsTrigger>
+            <TabsTrigger value="pending" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white">To Do</TabsTrigger>
+            <TabsTrigger value="in-progress" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white">In Progress</TabsTrigger>
+            <TabsTrigger value="completed" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white">Completed</TabsTrigger>
           </TabsList>
         </Tabs>
         
         {/* Task cards */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
           variants={containerVariants}
           initial="hidden"
           animate="show"
@@ -288,6 +301,7 @@ const JourneyPage = () => {
               <motion.div
                 key={task.id}
                 variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
               >
                 <JourneyTaskCard 
                   task={task} 
@@ -296,13 +310,13 @@ const JourneyPage = () => {
               </motion.div>
             ))
           ) : (
-            <div className="col-span-full text-center py-10">
-              <MapPin className="h-10 w-10 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-medium mb-2">No tasks found</h3>
-              <p className="text-muted-foreground mb-4">
+            <div className="col-span-full text-center py-10 bg-amber-50/50 rounded-xl">
+              <MapPin className="h-10 w-10 text-amber-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium mb-2 text-amber-800">No quests found</h3>
+              <p className="text-amber-700 mb-4">
                 {activeFilter 
-                  ? `No ${activeTab} tasks in the ${activeFilter} category.` 
-                  : `No ${activeTab} tasks available.`
+                  ? `No ${activeTab} quests in the ${activeFilter} category.` 
+                  : `No ${activeTab} quests available.`
                 }
               </p>
               <Button 
@@ -311,8 +325,9 @@ const JourneyPage = () => {
                   setActiveTab("all");
                   setActiveFilter(null);
                 }}
+                className="bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-200"
               >
-                View All Tasks
+                View All Quests
               </Button>
             </div>
           )}

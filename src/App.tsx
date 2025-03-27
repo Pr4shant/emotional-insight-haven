@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Therapy from "./pages/Therapy";
 import Settings from "./pages/Settings";
+import Journey from "./pages/Journey";
 import NotFound from "./pages/NotFound";
 import { AnimatePresence } from "framer-motion";
 
@@ -27,6 +28,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/therapy" element={<Therapy />} />
+              <Route path="/journey" element={<Journey />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

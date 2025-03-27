@@ -68,3 +68,30 @@ export type UserSettings = {
     sessionDuration: number;
   };
 };
+
+export type JourneyTask = {
+  id: string;
+  title: string;
+  description: string;
+  status: "pending" | "in-progress" | "completed";
+  difficulty: 1 | 2 | 3; // 1 = easy, 2 = medium, 3 = challenging
+  category: "mindfulness" | "physical" | "social" | "emotional" | "cognitive";
+  xpReward: number;
+  dateCreated: string;
+  dateCompleted?: string;
+  relatedTopic?: string;
+  estimatedDuration: number; // in minutes
+};
+
+export type JourneyMilestone = {
+  id: string;
+  title: string;
+  description: string;
+  tasksRequired: number;
+  progress: number;
+  completed: boolean;
+  reward: {
+    xp: number;
+    badge?: string;
+  };
+};

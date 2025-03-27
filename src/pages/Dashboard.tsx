@@ -1,14 +1,14 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { mockTherapySessions, mockUserPersonality } from "@/lib/data";
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell } from "recharts";
-import { Brain, Calendar, Clock, HeartPulse, TrendingUp } from "lucide-react";
+import { Brain, Calendar, Clock, HeartPulse, TrendingUp, Trophy, Award } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
 import { MoodProgress } from "@/components/MoodProgress";
 import { TraitProgress } from "@/components/TraitProgress";
+import { AchievementsList } from "@/components/AchievementsList";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Dashboard = () => {
@@ -46,6 +46,11 @@ const Dashboard = () => {
   // Updated color palette with more appealing colors
   const COLORS = ['#845EF7', '#5C7CFA', '#339AF0', '#22B8CF', '#20C997'];
   
+  // Calculate user level based on sessions and progress
+  const userLevel = Math.floor(totalSessions / 2) + 1;
+  const userXP = (totalSessions % 2) * 50;
+  const nextLevelXP = 100;
+  
   return (
     <div className="container mx-auto px-4 pt-20 pb-10">
       <motion.div
@@ -58,8 +63,45 @@ const Dashboard = () => {
         <p className="text-muted-foreground">Track your therapy journey and gain insights about yourself</p>
       </motion.div>
       
+      {/* User Level Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="mb-6"
+      >
+        <Card className="border-primary/20 bg-muted/30">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Trophy className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Your Therapy Journey</p>
+                  <h3 className="text-xl font-bold flex items-center gap-2">
+                    Level {userLevel} Wellness Explorer
+                    <Award className="h-4 w-4 text-amber-500" />
+                  </h3>
+                </div>
+              </div>
+              <div className="w-1/3">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-xs text-muted-foreground">{userXP} XP</span>
+                  <span className="text-xs text-muted-foreground">{nextLevelXP} XP</span>
+                </div>
+                <Progress value={(userXP / nextLevelXP) * 100} className="h-2" />
+                <p className="text-xs text-center mt-1 text-muted-foreground">
+                  {nextLevelXP - userXP} XP to Level {userLevel + 1}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+      
       <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className={`grid w-full rounded-xl p-1 bg-muted ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-3'}`}>
+        <TabsList className={`grid w-full rounded-xl p-1 bg-muted ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-4'}`}>
           <TabsTrigger value="overview" className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary">
             Overview
           </TabsTrigger>
@@ -68,6 +110,9 @@ const Dashboard = () => {
           </TabsTrigger>
           <TabsTrigger value="insights" className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary">
             Personality Insights
+          </TabsTrigger>
+          <TabsTrigger value="achievements" className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-primary">
+            Achievements
           </TabsTrigger>
         </TabsList>
         
@@ -386,6 +431,28 @@ const Dashboard = () => {
               </motion.div>
             </div>
           </div>
+        </TabsContent>
+        
+        {/* Achievements Tab Content */}
+        <TabsContent value="achievements" className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Trophy className="h-4 w-4 text-primary" />
+                  Your Achievements
+                </CardTitle>
+                <CardDescription>Track your progress and unlock rewards</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <AchievementsList />
+              </CardContent>
+            </Card>
+          </motion.div>
         </TabsContent>
       </Tabs>
     </div>

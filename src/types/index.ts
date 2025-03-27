@@ -41,6 +41,20 @@ export type UserPersonality = {
   insights: string[];
   strengths: string[];
   challenges: string[];
+  level?: number;
+  xp?: number;
+};
+
+export type UserAchievement = {
+  id: string;
+  title: string;
+  description: string;
+  progress: number;
+  type: "session" | "mood" | "trait" | "streak";
+  level?: number;
+  completed: boolean;
+  icon: "badge" | "trophy" | "star" | "medal" | "award";
+  unlockedAt?: string;
 };
 
 export type UserSettings = {
